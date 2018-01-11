@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Product Id="*" Name="AlexaDesktopControlInstaller" Language="1033" Version="1.0.0.0" Manufacturer="Stefano Palermo" UpgradeCode="69f3ac42-6fe7-49ed-892b-2952a76f145a">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+    <UI>
+      <UIRef Id="WixUI_Minimal" />
+    </UI>
+
+    <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOXTEXT" Value="Launch Alexa Desktop Control" />
+    
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+		<MediaTemplate />
+
+		<Feature Id="ProductFeature" Title="AlexaDesktopControl" Level="1">
+			<ComponentGroupRef Id="ProductComponents" />
+		</Feature>
+	</Product>
+
+	<Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFilesFolder">
+				<Directory Id="INSTALLFOLDER" Name="AlexaDesktopControlInstaller" />
+			</Directory>
+		</Directory>
+	</Fragment>
+
+	<Fragment>
+		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">			
+			<Component Id="ProductComponent">
+        <File Source="$(var.AlexaDesktopControl.TargetPath)" />
+			</Component>
+		</ComponentGroup>
+	</Fragment>
+</Wix>
