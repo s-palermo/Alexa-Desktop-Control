@@ -49,7 +49,7 @@ namespace AlexaDesktopControl
 
         private void Amazon_Click(object sender, EventArgs e)
         {
-            //NavigationService.Navigate(__browserPage);
+            NavigationService.Navigate(__browserPage);
             this.Show();
             this.WindowState = WindowState.Normal;
         }

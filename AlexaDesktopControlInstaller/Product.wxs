@@ -1,35 +1,103 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Id="*" Name="AlexaDesktopControlInstaller" Language="1033" Version="1.0.0.0" Manufacturer="Stefano Palermo" UpgradeCode="69f3ac42-6fe7-49ed-892b-2952a76f145a">
-		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
-
-    <UI>
-      <UIRef Id="WixUI_Minimal" />
-    </UI>
-
-    <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOXTEXT" Value="Launch Alexa Desktop Control" />
-    
-		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
-		<MediaTemplate />
-
-		<Feature Id="ProductFeature" Title="AlexaDesktopControl" Level="1">
-			<ComponentGroupRef Id="ProductComponents" />
-		</Feature>
-	</Product>
-
-	<Fragment>
-		<Directory Id="TARGETDIR" Name="SourceDir">
-			<Directory Id="ProgramFilesFolder">
-				<Directory Id="INSTALLFOLDER" Name="AlexaDesktopControlInstaller" />
-			</Directory>
-		</Directory>
-	</Fragment>
-
-	<Fragment>
-		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">			
-			<Component Id="ProductComponent">
-        <File Source="$(var.AlexaDesktopControl.TargetPath)" />
-			</Component>
-		</ComponentGroup>
-	</Fragment>
+   <?define AlexaDesktopControl_TargetDir=$(var.AlexaDesktopControl.TargetDir)?>
+   <Product Id="*" Name="Alexa Desktop Control" Language="1033" Version="1.0.0.0" Manufacturer="Stefano Palermo" UpgradeCode="69f3ac42-6fe7-49ed-892b-2952a76f145a">
+      <Package Id="*" InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+      <UI>
+         <UIRef Id="WixUI_Minimal" />
+      </UI>
+      <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOXTEXT" Value="Launch Alexa Desktop Control" />
+      <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+      <MediaTemplate EmbedCab="yes" />
+      <Feature Id="ProductFeature" Title="Alexa Desktop Control Installer" Level="1">
+         <ComponentGroupRef Id="ProductComponents" />
+         <ComponentGroupRef Id="ProductImages" />
+         <ComponentGroupRef Id="ProductScripts" />
+         <ComponentGroupRef Id="ProductLocales" />
+      </Feature>
+   </Product>
+   <Fragment>
+      <Directory Id="TARGETDIR" Name="SourceDir">
+         <Directory Id="ProgramFilesFolder">
+            <Directory Id="INSTALLFOLDER" Name="Alexa Desktop Control">
+               <Directory Id="ImagesFolder" Name="Images" />
+               <Directory Id="ScriptsFolder" Name="Scripts" />
+               <Directory Id="LocalesFolder" Name="locales" />
+            </Directory>
+         </Directory>
+      </Directory>
+   </Fragment>
+   <Fragment>
+      <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+         <Component Guid="{B7B08CBC-A0E2-4C71-99DB-3FC93D3D1A2E}">
+            <File Source="$(var.AlexaDesktopControl.TargetPath)" KeyPath="yes" />
+         </Component>
+         <Component Guid="{38FE9C86-5753-4B0F-882B-1BFB5BFF03EF}">
+            <File Source="$(var.AlexaDesktopControl_TargetDir)AlexaDesktopControl.exe.config" KeyPath="yes" />
+         </Component>
+         <Component Guid="{855B010F-E950-48CB-9949-40AAF81B363C}">
+            <File Source="$(var.AlexaDesktopControl_TargetDir)CefSharp.BrowserSubprocess.exe" KeyPath="yes" />
+         </Component>
+         <Component Guid="{FDF31D53-69F4-470A-9967-059BC413D9CB}">
+            <File Source="$(var.AlexaDesktopControl_TargetDir)CefSharp.BrowserSubprocess.Core.dll" KeyPath="yes" />
+         </Component>
+         <Component Guid="{69E53FCD-29B2-440A-BCA5-A7E292AD2118}">
+            <File Source="$(var.AlexaDesktopControl_TargetDir)CefSharp.Core.dll" KeyPath="yes" />
+         </Component>
+         <Component Guid="{F75BDE13-4490-47BC-8AA9-D63F940B4BEA}">
+            <File Source="$(var.AlexaDesktopControl_TargetDir)CefSharp.dll" KeyPath="yes" />
+         </Component>
+         <Component Guid="{A83DAEBC-8161-4435-809A-BC6E1ED1FC6D}">
+            <File Source="$(var.AlexaDesktopControl_TargetDir)d3dcompiler_47.dll" KeyPath="yes" />
+         </Component>
+         <Component Guid="{2B5E537C-AB1B-4781-A5C6-0BC537211935}">
+            <File Source="$(var.AlexaDesktopControl_TargetDir)libcef.dll" KeyPath="yes" />
+         </Component>
+         <Component Guid="{526E4D92-0424-4411-B409-197B96BCF9EF}">
+            <File Source="$(var.AlexaDesktopControl_TargetDir)icudtl.dat" KeyPath="yes" />
+         </Component>
+         <Component Guid="{7A9BEC87-EFA3-480A-9AE9-D12BDBD7475F}">
+            <File Source="$(var.AlexaDesktopControl_TargetDir)cef.pak" KeyPath="yes" />
+         </Component>
+         <Component Guid="{9BF05302-A46F-46D1-A29A-1C29E8950493}">
+            <File Source="$(var.AlexaDesktopControl_TargetDir)cef_100_percent.pak" KeyPath="yes" />
+         </Component>
+         <Component Guid="{74E6B248-2086-4BBB-A126-73DEF6CA22B1}">
+            <File Source="$(var.AlexaDesktopControl_TargetDir)cef_200_percent.pak" KeyPath="yes" />
+         </Component>
+         <Component Guid="{F7555BB8-0887-438D-A8B0-727E865DD681}">
+            <File Source="$(var.AlexaDesktopControl_TargetDir)cef_extensions.pak" KeyPath="yes" />
+         </Component>
+         <Component Guid="{B3B8161F-E52F-4054-A387-2747A87E2AD4}">
+            <File Source="$(var.AlexaDesktopControl_TargetDir)chrome_elf.dll" KeyPath="yes" />
+         </Component>
+         <Component Guid="{7CAFE394-5EA7-4A45-AC02-65EDC960305E}">
+            <File Source="$(var.AlexaDesktopControl_TargetDir)natives_blob.bin" KeyPath="yes" />
+         </Component>
+         <Component Guid="{7DED86D1-D7F9-4824-9C54-C0EE3FBDD984}">
+            <File Source="$(var.AlexaDesktopControl_TargetDir)snapshot_blob.bin" KeyPath="yes" />
+         </Component>
+         <Component Guid="{8FF7989F-9EDF-408F-B439-81CB5E573A87}">
+            <File Source="$(var.AlexaDesktopControl_TargetDir)CefSharp.Wpf.dll" KeyPath="yes" />
+         </Component>
+      </ComponentGroup>
+      <ComponentGroup Id="ProductImages" Directory="ImagesFolder">
+         <Component Guid="{E28E8261-493B-4BD2-8DEC-9CCA378BC067}">
+            <File Source="$(var.AlexaDesktopControl_TargetDir)Images\toolbar.ico" KeyPath="yes" />
+         </Component>
+      </ComponentGroup>
+      <ComponentGroup Id="ProductScripts" Directory="ScriptsFolder">
+         <Component Guid="{61F6DA9D-0E4C-4292-B9BD-2578D8911B75}">
+            <File Source="$(var.AlexaDesktopControl_TargetDir)Scripts\app.js" KeyPath="yes" />
+         </Component>
+         <Component Guid="{0D7C5429-ED6A-43D9-84CF-CBC1BBF0970F}">
+            <File Source="$(var.AlexaDesktopControl_TargetDir)Scripts\jquery-3.2.1.min.js" KeyPath="yes" />
+         </Component>
+      </ComponentGroup>
+      <ComponentGroup Id="ProductLocales" Directory="LocalesFolder">
+         <Component Guid="{4176C362-FC6B-4BD1-AB13-DB6B3A24A693}">
+            <File Source="$(var.AlexaDesktopControl_TargetDir)locales\en-US.pak" KeyPath="yes" />
+         </Component>
+      </ComponentGroup>
+   </Fragment>
 </Wix>
