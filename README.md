@@ -38,6 +38,7 @@ In the configuration view, a user can map a spoken command to alexa to an execut
 Examples:
 
 Spoken Command:alexa open google
+ 
 PC Action:start chrome
 
 
