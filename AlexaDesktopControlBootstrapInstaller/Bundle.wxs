@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Bundle Name="Alexa Desktop Control" Version="1.0.0.0" Manufacturer="Stefano Palermo" UpgradeCode="f4543615-9d39-4ffc-a364-15aa3d89f92b">
+		<BootstrapperApplicationRef Id="WixStandardBootstrapperApplication.RtfLicense" />
+
+    <Chain>
+      <PackageGroupRef Id="NetFx461Web"/>
+      <MsiPackage Id="AlexaDesktopControl" SourceFile="$(var.AlexaDesktopControlInstaller.TargetPath)"/>
+    </Chain>
+    
+	</Bundle>
+</Wix>

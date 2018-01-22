@@ -18,7 +18,7 @@ namespace AlexaDesktopControl
 
             NotifyIcon ni = new System.Windows.Forms.NotifyIcon();
             ni.Text = "Alexa Desktop Control";
-            ni.Icon = new System.Drawing.Icon(@"Images/toolbar.ico");
+            ni.Icon = new System.Drawing.Icon(@"Images/adc.ico");
             ni.Visible = true;
             ni.MouseDoubleClick += ni_DoubleClick;
             ContextMenu cm = new ContextMenu();

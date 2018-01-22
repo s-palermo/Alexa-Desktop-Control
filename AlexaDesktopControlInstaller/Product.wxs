@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
    <?define AlexaDesktopControl_TargetDir=$(var.AlexaDesktopControl.TargetDir)?>
    <Product Id="*" Name="Alexa Desktop Control" Language="1033" Version="1.0.0.0" Manufacturer="Stefano Palermo" UpgradeCode="69f3ac42-6fe7-49ed-892b-2952a76f145a">
       <Package Id="*" InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
-      <UI>
+
+     <PropertyRef Id="WIX_IS_NETFRAMEWORK_461_OR_LATER_INSTALLED"/>
+
+     <Condition Message="This application requires .NET Framework 4.6.1 or later. Please install the .NET Framework then run this installer again.">
+       <![CDATA[Installed OR WIX_IS_NETFRAMEWORK_461_OR_LATER_INSTALLED]]>
+     </Condition>
+     
+     <UI>
          <UIRef Id="WixUI_Minimal" />
-      </UI>
+     </UI>
+
+     <Icon Id="AppIcon" SourceFile="$(var.AlexaDesktopControl_TargetDir)Images\adc.ico"/>
+     <Property Id="ARPPRODUCTICON" Value="AppIcon" />
+     
       <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOXTEXT" Value="Launch Alexa Desktop Control" />
       <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
       <MediaTemplate EmbedCab="yes" />
@@ -14,11 +25,29 @@
          <ComponentGroupRef Id="ProductImages" />
          <ComponentGroupRef Id="ProductScripts" />
          <ComponentGroupRef Id="ProductLocales" />
+        <ComponentRef Id ="ApplicationShortcutDesktop"/>
       </Feature>
    </Product>
    <Fragment>
       <Directory Id="TARGETDIR" Name="SourceDir">
-         <Directory Id="ProgramFilesFolder">
+        <Directory Id="DesktopFolder" Name="Desktop">
+          <Component Id="ApplicationShortcutDesktop" Guid="*">
+            <Shortcut Id="ApplicationDesktopShortcut"
+                Name="Alexa Desktop Control"
+                Description="Control your PC with Alexa!"
+                Target="[INSTALLFOLDER]AlexaDesktopControl.exe"
+                WorkingDirectory="INSTALLFOLDER"/>
+            <RemoveFolder Id="DesktopFolder" On="uninstall"/>
+            <RegistryValue
+                Root="HKCU"
+                Key="Software/AlexaDesktopControl"
+                Name="installed"
+                Type="integer"
+                Value="1"
+                KeyPath="yes"/>
+          </Component>
+        </Directory>
+         <Directory Id="ProgramFiles64Folder">
             <Directory Id="INSTALLFOLDER" Name="Alexa Desktop Control">
                <Directory Id="ImagesFolder" Name="Images" />
                <Directory Id="ScriptsFolder" Name="Scripts" />
@@ -83,7 +112,7 @@
       </ComponentGroup>
       <ComponentGroup Id="ProductImages" Directory="ImagesFolder">
          <Component Guid="{E28E8261-493B-4BD2-8DEC-9CCA378BC067}">
-            <File Source="$(var.AlexaDesktopControl_TargetDir)Images\toolbar.ico" KeyPath="yes" />
+            <File Source="$(var.AlexaDesktopControl_TargetDir)Images\adc.ico" KeyPath="yes" />
          </Component>
       </ComponentGroup>
       <ComponentGroup Id="ProductScripts" Directory="ScriptsFolder">
