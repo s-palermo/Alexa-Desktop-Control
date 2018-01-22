@@ -41,7 +41,7 @@ Spoken Command:alexa open google
 PC Action:start chrome
 
 
-PS: more advanced configuration methods to come (ie. alexa ask google to search for tigers, alexa put pc to sleep in 10 minutes)
+~~ more advanced configuration methods to come (ie. alexa ask google to search for tigers, alexa put pc to sleep in 10 minutes)
 
 
 
