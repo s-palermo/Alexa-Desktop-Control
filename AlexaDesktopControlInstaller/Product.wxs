@@ -113,7 +113,7 @@
       <ComponentGroup Id="ProductImages" Directory="ImagesFolder">
          <Component Guid="{E28E8261-493B-4BD2-8DEC-9CCA378BC067}">
             <File Source="$(var.AlexaDesktopControl_TargetDir)Images\adc.ico" KeyPath="yes" />
-         </Component>
+         </Component>        
       </ComponentGroup>
       <ComponentGroup Id="ProductScripts" Directory="ScriptsFolder">
          <Component Guid="{61F6DA9D-0E4C-4292-B9BD-2578D8911B75}">

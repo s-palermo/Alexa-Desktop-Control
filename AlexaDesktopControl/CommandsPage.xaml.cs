@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -27,6 +28,10 @@ namespace AlexaDesktopControl
             //App.SaveCommands(new AlexaCommands());               
             InitializeComponent();
             ListCommands();
+            //add event handler to change canvas size when scrollbar visibility is changed
+            DependencyPropertyDescriptor descriptor = DependencyPropertyDescriptor.FromProperty(ScrollViewer.ComputedVerticalScrollBarVisibilityProperty, typeof(ScrollViewer));
+            descriptor.AddValueChanged(this.Scrollbar, new EventHandler(VerticalScrollBarIsChanged));
+            VerticalScrollBarIsChanged(null, null);//check on initialization if bar is visible
         }
 
         private void AddCmdBtn_Click(object sender, RoutedEventArgs e)
@@ -36,10 +41,18 @@ namespace AlexaDesktopControl
                 MessageBox.Show("Both commands must contain a value.");
                 return;
             }
+                        
+            try
+            {
+                App.AlexaCommands.CommandList.Add(AlexaCmdTxt.Text, DesktopCmdTxt.Text);
+                CreateCommand(AlexaCmdTxt.Text, DesktopCmdTxt.Text);
+                App.SaveCommands();
+            }
+            catch(ArgumentException ex)
+            {
+                MessageBox.Show("Command Exists. Cannot have two actions for the same command.");
+            }
 
-            CreateCommand(AlexaCmdTxt.Text, DesktopCmdTxt.Text);
-            App.AlexaCommands.CommandList.Add(AlexaCmdTxt.Text, DesktopCmdTxt.Text);
-            App.SaveCommands();
             AlexaCmdTxt.Text = "";
             DesktopCmdTxt.Text = "";
         }
@@ -75,7 +88,7 @@ namespace AlexaDesktopControl
         {
             RowDefinition row = new RowDefinition()
             {
-                Height = new GridLength(25),
+                Height = new GridLength(40),
                 Name = "RowDef" + CommandsGrid.RowDefinitions.Count
             };
             CommandsGrid.RowDefinitions.Add(row);
@@ -84,8 +97,9 @@ namespace AlexaDesktopControl
                 Text = alexaCommand,
                 Margin = new Thickness(3),
                 IsReadOnly = true,
-                Name = "AlexaCmdTxt" + (CommandsGrid.RowDefinitions.Count - 1)
-            };
+                Name = "AlexaCmdTxt" + (CommandsGrid.RowDefinitions.Count - 1),
+                Style = (Style)FindResource("BetterTextBoxStyle")
+        };
             CommandsGrid.Children.Add(textBox);
             Grid.SetRow(textBox, CommandsGrid.RowDefinitions.Count - 1);
             Grid.SetColumn(textBox, 0);
@@ -94,7 +108,8 @@ namespace AlexaDesktopControl
                 Text = desktopCommand,
                 Margin = new Thickness(3),
                 IsReadOnly = true,
-                Name = "DesktopCmdTxt" + (CommandsGrid.RowDefinitions.Count - 1)
+                Name = "DesktopCmdTxt" + (CommandsGrid.RowDefinitions.Count - 1),
+                Style = (Style)FindResource("BetterTextBoxStyle")
             };
             CommandsGrid.Children.Add(textBox2);
             Grid.SetRow(textBox2, CommandsGrid.RowDefinitions.Count - 1);
@@ -124,6 +139,18 @@ namespace AlexaDesktopControl
                 string outVal;
                 App.AlexaCommands.CommandList.TryGetValue(key, out outVal);
                 CreateCommand(key, outVal);
+            }
+        }
+
+        private void VerticalScrollBarIsChanged(object sender, EventArgs e)
+        {
+            if (Scrollbar.ComputedVerticalScrollBarVisibility == Visibility.Visible)
+            {
+                this.Width = 616;
+            }
+            else
+            {
+                this.Width = 600;
             }
         }
     }

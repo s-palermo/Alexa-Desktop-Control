@@ -12,10 +12,9 @@ namespace AlexaDesktopControl
         public static BrowserPage __browserPage = new BrowserPage();
         public MainWindow()
         {
-            InitializeComponent();
-            NavigationService.Navigate(__browserPage);
-            CenterWindowOnScreen();
-
+            InitializeComponent();//TODO CHANGE BACK TO NAVIGATION
+            NavigationService.Navigate(__commandsPage);
+            
             NotifyIcon ni = new System.Windows.Forms.NotifyIcon();
             ni.Text = "Alexa Desktop Control";
             ni.Icon = new System.Drawing.Icon(@"Images/adc.ico");
@@ -80,7 +79,7 @@ namespace AlexaDesktopControl
             base.OnStateChanged(e);
         }
 
-        private void CenterWindowOnScreen()
+        public void CenterWindowOnScreen()
         {
             double screenWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
             double screenHeight = System.Windows.SystemParameters.PrimaryScreenHeight;

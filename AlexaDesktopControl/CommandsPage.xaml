@@ -6,33 +6,40 @@
       xmlns:local="clr-namespace:AlexaDesktopControl"
       mc:Ignorable="d" 
       d:DesignHeight="800" d:DesignWidth="600"
-      Title="CommandsPage" ShowsNavigationUI="False">
+      Title="CommandsPage" ShowsNavigationUI="False" Height="800" Width="600">
 
-    
-    
-    <ScrollViewer VerticalScrollBarVisibility="Auto">                
+
+
+    <ScrollViewer Name="Scrollbar" VerticalScrollBarVisibility="Auto">
+        <ScrollViewer.Background>
+            <ImageBrush ImageSource="Images/bkg.jpg"/>
+        </ScrollViewer.Background>
         <Grid Name="CommandsGrid">
+            <Grid.Background>
+                <ImageBrush TileMode="FlipX"/>
+            </Grid.Background>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="25px"/>
+                <RowDefinition Height="40px"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="278"/>
-                <ColumnDefinition Width="278" />
-                <ColumnDefinition Width="25" />
+                <ColumnDefinition Width="280"/>
+                <ColumnDefinition Width="280" />
+                <ColumnDefinition Width="40" />
             </Grid.ColumnDefinitions>
-            <Label  Grid.Row="0" Grid.ColumnSpan="3" Margin="3,3,3,15" FontWeight="Bold" HorizontalAlignment="Center" FontSize="20">Commands Configuration</Label>
-            <Label Grid.Column="0" Grid.Row="1" Margin="3" FontWeight="Bold" HorizontalAlignment="Center">Alexa Command</Label>
-            <Label Grid.Column="1" Grid.Row="1" Margin="3" FontWeight="Bold" HorizontalAlignment="Center">Desktop Command</Label>
-            <TextBox Name="AlexaCmdTxt" Grid.Column="0" Grid.Row="2" Margin="3" />
-            <TextBox Name="DesktopCmdTxt" Grid.Column="1" Grid.Row="2" Margin="3" />
+            
+            <Label  Grid.Row="0" Grid.ColumnSpan="3" Margin="3,40,3,40" HorizontalAlignment="Center" FontSize="36" Background="{x:Null}">Commands Configuration</Label>
+            <Label Grid.Column="0" Grid.Row="1" Margin="3" HorizontalAlignment="Center" FontSize="18">Alexa Command</Label>
+            <Label Grid.Column="1" Grid.Row="1" Margin="3" HorizontalAlignment="Center" FontSize="18">Desktop Command</Label>
+            <TextBox Style="{StaticResource BetterTextBoxStyle}" Name="AlexaCmdTxt" Grid.Column="0" Grid.Row="2" Margin="3" />
+            <TextBox Style="{StaticResource BetterTextBoxStyle}" Name="DesktopCmdTxt" Grid.Column="1" Grid.Row="2" Margin="3" />
             <Button Grid.Column="3" Grid.Row="2" Margin="3" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="AddCmdBtn_Click">
                 <StackPanel>
                     <Image Source="Images/add.png" />
                 </StackPanel>
             </Button>
-        
+
         </Grid>
     </ScrollViewer>
 </Page>

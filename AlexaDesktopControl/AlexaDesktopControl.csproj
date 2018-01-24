@@ -178,6 +178,9 @@
     <Content Include="Images\adc.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Images\bkg.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Content Include="Scripts\app.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

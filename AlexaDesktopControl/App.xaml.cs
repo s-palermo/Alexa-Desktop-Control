@@ -17,10 +17,6 @@ namespace AlexaDesktopControl
         private App()
         {
             LoadCommands();
-            foreach (string key in AlexaCommands.CommandList.Keys)
-            {
-                Console.WriteLine(key);
-            }
         }
         private void LoadCommands()
         {
